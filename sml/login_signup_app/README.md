@@ -7,13 +7,13 @@ A new Flutter project.
 This project is a starting point for a Flutter application.
 
 #Setup
-step 1 - run the command - flutter pub get
+step 1 - run the command - flutter pub get 
 
 step 2 - create a firebase account and create a realtime database
 
 step 3 - add your database's - apikey, appid, messagingsenderid, projectid, databaseurl, storagebucket in main.dart FirbaseInitializeApp
 
-step 4 - after downloading the jgoogle-services.json file add it in the app/src folder
+step 4 - after downloading the google-services.json file add it in the app/src folder and remove the existing google-service.json if present
 
 step 5 - if you have done connection of ir sensors with the nodemcu then write the following code to connect it to the firebase
 //code starts here (to be written in arduino ide)
