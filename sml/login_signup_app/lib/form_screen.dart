@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:login_signup_app/SignupPage.dart';
+import 'package:login_signup_app/display.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class FormScreen extends StatefulWidget {
   @override
@@ -11,6 +13,60 @@ class _FormScreenState extends State<FormScreen> {
   final emailController = TextEditingController();
   final passController = TextEditingController();
   bool passToggle = true;
+
+  userLogin() async {
+    try {
+      print(emailController.toString());
+      print(passController.toString());
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text,
+          password: passController.text);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => CounterDisplay()),
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+      // Show an alert dialog if user is not found
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('User not found'),
+            content: Text('Please check your email and password and try again.'),
+            actions: [
+              TextButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } else if (e.code == 'wrong-password') {
+      // Show an alert dialog if password is incorrect
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Incorrect password'),
+            content: Text('Please check your password and try again.'),
+            actions: [
+              TextButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -104,6 +160,7 @@ class _FormScreenState extends State<FormScreen> {
                 SizedBox(height: 60),
                 InkWell(
                   onTap: () {
+                    userLogin();
                     if (_formfield.currentState!.validate()) {
                       print("Success");
                       emailController.clear();

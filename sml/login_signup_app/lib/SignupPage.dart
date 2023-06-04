@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:login_signup_app/display.dart';
 import 'package:login_signup_app/form_screen.dart';
@@ -22,6 +23,7 @@ class _SignupPageState extends State<SignupPage> {
     return Scaffold(
         backgroundColor: Colors.black87,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: Text("SignUp Page"),
           centerTitle: true,
         ),
@@ -148,37 +150,47 @@ class _SignupPageState extends State<SignupPage> {
                 ),
                 SizedBox(height: 60),
                 GestureDetector(
-  onTap: () {
-    if (_formfield.currentState!.validate()) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => CounterDisplay()),
-      );
-      // Clear the form fields
-      emailController.clear();
-      passController.clear();
-      _confirmPass.clear();
-      userController.clear();
-    }
-  },
-  child: Container(
-    height: 50,
-    decoration: BoxDecoration(
-      color: Colors.yellow,
-      borderRadius: BorderRadius.circular(5),
-    ),
-    child: Center(
-      child: Text(
-        "Register",
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    ),
-  ),
-),
+                  onTap: () {
+                    FirebaseAuth.instance
+                        .createUserWithEmailAndPassword(
+                            email: emailController.text,
+                            password: passController.text)
+                        .then((value) {
+                      print("Created New account");
+                      if (_formfield.currentState!.validate()) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CounterDisplay()),
+                        );
+                        // Clear the form fields
+                        emailController.clear();
+                        passController.clear();
+                        _confirmPass.clear();
+                        userController.clear();
+                      }
+                    }).onError((error, stackTrace) {
+                      print("Error ${error.toString()}");
+                    });
+                  },
+                  child: Container(
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.yellow,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Register",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

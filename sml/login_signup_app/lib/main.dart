@@ -2,9 +2,17 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:login_signup_app/form_screen.dart';
 
-Future <void> main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: FirebaseOptions(apiKey:"AIzaSyCDHLu_gr4ALWkm3Xbu48yZhtgQGBJ-LvY" , appId: "1:990041981008:android:97c15e8308fac16a8ed155", messagingSenderId: '990041981008', projectId: 'smlproject-b3a9e'));
+  await Firebase.initializeApp(
+      options: FirebaseOptions(
+          apiKey: "AIzaSyCDHLu_gr4ALWkm3Xbu48yZhtgQGBJ-LvY",
+          appId: "1:990041981008:android:97c15e8308fac16a8ed155",
+          messagingSenderId: '990041981008',
+          projectId: 'smlproject-b3a9e',
+          databaseURL: 'https://smlproject-b3a9e-default-rtdb.firebaseio.com',
+          storageBucket: 'smlproject-b3a9e.appspot.com',
+          ));
   runApp(MyApp());
 }
 
@@ -20,8 +28,6 @@ Future <void> main() async {
 //   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
 //   "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-pd1vr%40smlproject-b3a9e.iam.gserviceaccount.com"
 // }
-
-
 
 class MyApp extends StatelessWidget {
   @override
