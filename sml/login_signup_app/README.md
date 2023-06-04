@@ -1,3 +1,4 @@
+[MAD Mini Project Report.pdf](https://github.com/varad-thorat/VistorCounter-App-using-Flutter-and-Firebase/files/11646105/MAD.Mini.Project.Report.pdf)
 # login_signup_app
 
 A new Flutter project.
