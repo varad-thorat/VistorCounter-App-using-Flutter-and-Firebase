@@ -89,6 +89,8 @@ void loop() {
 //code ends here
 
 step 6 - flutter run
+
+The images of the app are attached as pdf file which is at the top of this readme file
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 
 A few resources to get you started if this is your first Flutter project:
